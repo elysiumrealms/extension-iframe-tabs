@@ -1,14 +1,14 @@
 {
-    "name": "changzhong/extension-iframe-tabs",
+    "name": "elysiumrealms/extension-iframe-tabs",
     "description": "dcat-admin extension iframe-tabs",
     "type": "library",
     "keywords": ["dcat-admin", "extension"],
-    "homepage": "https://github.com/changzhong/extension-iframe-tabs",
+    "homepage": "https://github.com/elysiumrealms/extension-iframe-tabs",
     "license": "MIT",
     "authors": [
         {
-            "name": "chang",
-            "email": "632867905@qq.com"
+            "name": "deflinhec",
+            "email": "deflinhec@gmail.com"
         }
     ],
     "require": {

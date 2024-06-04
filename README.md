@@ -5,7 +5,7 @@ dcat-admin iframe多窗口扩展
 
 1.安装扩展
 ```
-composer require changzhong/extension-iframe-tabs
+composer require elysiumrealms/extension-iframe-tabs
 ```
 
 2.在后台扩展打开扩展，并导入
