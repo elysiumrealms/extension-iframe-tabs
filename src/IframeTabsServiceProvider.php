@@ -39,6 +39,14 @@ class IframeTabsServiceProvider extends ServiceProvider
             );
         }
 
+        $this->publishes(
+            [
+                __DIR__ . '/../resources/views/index' =>
+                resource_path('views/vendor/iframe-tabs')
+            ],
+            'iframe-tabs-view'
+        );
+
         //加载路由
         $this->app->booted(function () use($extension) {
            $extension->routes(__DIR__ . '/../routes/web.php');
@@ -56,7 +64,7 @@ class IframeTabsServiceProvider extends ServiceProvider
             Admin::booted(function () use ($assetPath, $extension) {
                 if (\Request::route()->getName() == 'iframes.index') {
                     //首页
-                    \View::prependNamespace('admin', __DIR__ . '/../resources/views/index');
+                    \View::prependNamespace('admin', resource_path('views/vendor/iframe-tabs'));
 
                     Admin::css($extension->config('tabs_css', $assetPath.'/dashboard.css'));
 
