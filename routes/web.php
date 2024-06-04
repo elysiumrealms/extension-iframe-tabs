@@ -11,7 +11,7 @@ Route::get('iframe-tabs', Controllers\IframeTabsController::class.'@index')->nam
 
 Route::get('/', IframeTabsController::class . '@index')->name('iframes.index');
 
-Route::get('/dashboard', config('admin-extensions.iframe-tabs.home_action', IframeTabsController::class . '@dashboard'))->name('iframes.dashboard');
+Route::get('/dashboard', config('admin.route.namespace') . '\\' . config('admin-extensions.iframe-tabs.home_action', IframeTabsController::class . '@dashboard'))->name('iframes.dashboard');
 
 if ($iframeTabs->config('force_login_in_top', true)) {
 

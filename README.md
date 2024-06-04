@@ -14,7 +14,7 @@ composer require changzhong/extension-iframe-tabs
 ```
     'iframe-tabs' => [
         'enable' => true,
-        'home_action' => 'App\Admin\Controllers\HomeController@home',
+        'home_action' => 'HomeController@home',
         'home_title' => 'Home',
         'home_icon' => 'fa-home',
         'use_icon' => true,
