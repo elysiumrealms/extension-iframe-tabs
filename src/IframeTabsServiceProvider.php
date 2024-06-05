@@ -39,13 +39,15 @@ class IframeTabsServiceProvider extends ServiceProvider
             );
         }
 
-        $this->publishes(
-            [
-                __DIR__ . '/../resources/views/index' =>
-                resource_path('views/vendor/iframe-tabs')
-            ],
-            'iframe-tabs-view'
-        );
+        if ($this->app->runningInConsole()) {
+            $this->publishes(
+                [
+                    __DIR__ . '/../resources/views/index' =>
+                    resource_path('views/vendor/iframe-tabs')
+                ],
+                'iframe-tabs-view'
+            );
+        }
 
         //加载路由
         $this->app->booted(function () use($extension) {
