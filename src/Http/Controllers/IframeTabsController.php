@@ -30,7 +30,7 @@ class IframeTabsController extends Controller
                 'refresh_succeeded' => admin_trans('admin.refresh_succeeded'),
             ],
             'home_uri' => admin_base_path('dashboard'),
-            'home_title' => $iframeTabs->config('home_title', 'Index'),
+            'home_title' => admin_trans('admin.menu_titles.index'),
             'home_icon' => $iframeTabs->config('home_icon', 'fa-home'),
             'use_icon' => $iframeTabs->config('use_icon', true) ? '1' : '',
             'pass_urls' => implode(',', $iframeTabs->config('pass_urls', ['/auth/logout'])),
