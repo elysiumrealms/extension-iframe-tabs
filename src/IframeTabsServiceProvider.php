@@ -71,6 +71,8 @@ class IframeTabsServiceProvider extends ServiceProvider
                     Admin::css($extension->config('tabs_css', $assetPath.'/dashboard.css'));
 
                     Admin::headerJs($assetPath.'/jquery-2.1.4.js');
+
+                    $this->propagateScript();
                 } else {
 
 
@@ -378,5 +380,41 @@ class IframeTabsServiceProvider extends ServiceProvider
         }
 EOT;
         Admin::script($script);
+    }
+
+    // 監聽傳遞事件
+    protected function propagateScript()
+    {
+        Admin::script(<<<JS
+            Dcat.ready(function () {
+                console.log('Dcat.ready');
+                if (window === window.top) {
+                    function propagate (event, callback) {
+                        var iframes = document.getElementsByTagName("iframe");
+                        for(var i in iframes) {
+                            var iframe = iframes[i];
+                            if (iframe && iframe.contentWindow) {
+                                iframe.contentWindow.$('body').trigger(event);
+                                callback && callback(iframe);
+                            }
+                        }
+                    }
+
+                    $(document).on('dark-mode.shown', function () {
+                        propagate('dark-mode.shown', function (iframe) {
+                            iframe.contentWindow.$('body')
+                                .addClass(Dcat.darkMode.options.class.dark);
+                        });
+                    });
+
+                    $(document).on('dark-mode.hide', function () {
+                        propagate('dark-mode.hide', function (iframe) {
+                            iframe.contentWindow.$('body')
+                                .removeClass(Dcat.darkMode.options.class.dark);
+                        });
+                    });
+                };
+            });
+        JS);
     }
 }
