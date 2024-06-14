@@ -387,7 +387,6 @@ EOT;
     {
         Admin::script(<<<JS
             Dcat.ready(function () {
-                console.log('Dcat.ready');
                 if (window === window.top) {
                     function propagate (event, callback) {
                         var iframes = document.getElementsByTagName("iframe");
