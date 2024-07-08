@@ -1,6 +1,6 @@
 <?php
 return [
-    'oprations' => '页签操作',
+    'operations' => '页签操作',
     'refresh_current' => '刷新当前',
     'close_current' => '关闭当前',
     'close_all' => '关闭全部',

@@ -17,7 +17,7 @@ class IframeTabsController extends Controller
         $items = [
             'header' => '',
             'trans' => [
-                'oprations' => admin_trans('admin.iframe-tabs.oprations'),
+                'operations' => admin_trans('admin.iframe-tabs.operations'),
                 'refresh_current' => admin_trans('admin.iframe-tabs.refresh_current'),
                 'close_current' => admin_trans('admin.iframe-tabs.close_current'),
                 'close_all' => admin_trans('admin.iframe-tabs.close_all'),

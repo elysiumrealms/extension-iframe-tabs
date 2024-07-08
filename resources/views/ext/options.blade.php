@@ -2,7 +2,7 @@
 
 <li class="dropdown dropdown-user nav-item">
     <a href="#" class="dropdown-toggle nav-link dropdown-user-link" data-toggle="dropdown">
-        {{ $trans['oprations'] }}<i class="fa fa-caret-down" style="padding-left: 3px;"></i>
+        {{ $trans['operations'] }}<i class="fa fa-caret-down" style="padding-left: 3px;"></i>
     </a>
     <ul class="dropdown-menu dropdown-menu-right">
         <li><a class="dropdown-item tabReload" href="javascript:;" onclick="refreshTab();">{{ $trans['refresh_current'] }}</a></li>
