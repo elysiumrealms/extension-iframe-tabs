@@ -28,11 +28,11 @@
                 </div>
 
                 <ul class="nav nav-pills nav-sidebar flex-column all-menu" data-widget="treeview" style="padding-top: 10px">
-                    {!! admin_section(AdminSection::LEFT_SIDEBAR_MENU_TOP) !!}
+                    {!! admin_section(Dcat\Admin\Admin::SECTION['LEFT_SIDEBAR_MENU_TOP']) !!}
 
-                    {!! admin_section(AdminSection::LEFT_SIDEBAR_MENU) !!}
+                    {!! admin_section(Dcat\Admin\Admin::SECTION['LEFT_SIDEBAR_MENU']) !!}
 
-                    {!! admin_section(AdminSection::LEFT_SIDEBAR_MENU_BOTTOM) !!}
+                    {!! admin_section(Dcat\Admin\Admin::SECTION['LEFT_SIDEBAR_MENU_BOTTOM']) !!}
                 </ul>
             </div>
         </aside>

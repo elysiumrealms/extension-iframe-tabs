@@ -1,87 +1,75 @@
 <?php
 
-namespace Dcat\Admin\Extension\IframeTabs;
+namespace Dcat\Admin\IframeTabs;
 
 use Dcat\Admin\Admin;
-use Dcat\Admin\Extension\IframeTabs\Middleware\ForceLogin;
-use http\Env\Request;
+use Dcat\Admin\IframeTabs\Http\Middleware\ForceLogin;
 use Illuminate\Support\Arr;
-use Illuminate\Support\ServiceProvider;
+use Dcat\Admin\Extend\ServiceProvider;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\View;
 
 class IframeTabsServiceProvider extends ServiceProvider
 {
+    protected $js = [
+        'extends.js',
+        'bootstrap-tab.js',
+        'jquery-2.1.4.js',
+    ];
+
+    protected $css = [
+        'content.css',
+        'dashboard.css',
+    ];
+
+    protected $middleware = [
+        'before' => [
+            ForceLogin::class,
+        ],
+    ];
+
     /**
      * {@inheritdoc}
      */
-    public function boot()
+    public function init()
     {
-        $extension = IframeTabs::make();
+        parent::init();
 
-        if ($views = $extension->views()) {
-            $this->loadViewsFrom($views, IframeTabs::NAME);
-        }
-
-        if ($lang = $extension->lang()) {
-            $this->loadTranslationsFrom($lang, IframeTabs::NAME);
-        }
-
-        $this->app->booted(function () use ($extension) {
-            $extension->routes(__DIR__.'/../routes/web.php');
-        });
-
-        $assetPath = 'vendors/dcat-admin-extensions/iframe-tabs';
-
-        //生成静态文件
-        if ($this->app->runningInConsole() && $assets = $extension->assets()) {
-            $this->publishes(
-                [$assets => public_path($assetPath)],
-                'iframe-tabs'
-            );
-        }
-
-        if ($this->app->runningInConsole()) {
-            $this->publishes(
-                [
-                    __DIR__ . '/../resources/views/index' =>
-                    resource_path('views/vendor/iframe-tabs')
-                ],
-                'iframe-tabs-view'
-            );
-        }
-
-        //加载路由
-        $this->app->booted(function () use($extension) {
-           $extension->routes(__DIR__ . '/../routes/web.php');
-        });
-
+        $assetPath = "@extension/{$this->getPackageName()}";
 
         //加载js
-        Admin::booting(function () use($assetPath){
-            Admin::js($assetPath.'/bootstrap-tab.js');
-            Admin::js($assetPath.'/extends.js');
+        Admin::booting(function () use ($assetPath) {
+            Admin::js($assetPath . '/bootstrap-tab.js');
+            Admin::js($assetPath . '/extends.js');
         });
 
         if ($this->inWeb()) {
 
-            Admin::booted(function () use ($assetPath, $extension) {
-                if (\Request::route()->getName() == 'iframes.index') {
+            Admin::booted(function () use ($assetPath) {
+                if (request()->route()->getName() == 'dcat.admin.iframes.index') {
                     //首页
-                    \View::prependNamespace('admin', resource_path('views/vendor/iframe-tabs'));
+                    View::prependNamespace(
+                        'admin',
+                        $this->getViewPath() . '/index'
+                    );
 
-                    Admin::css($extension->config('tabs_css', $assetPath.'/dashboard.css'));
+                    Admin::css($assetPath . '/dashboard.css');
 
-                    Admin::headerJs($assetPath.'/jquery-2.1.4.js');
+                    Admin::headerJs($assetPath . '/jquery-2.1.4.js');
 
                     $this->propagateScript();
                 } else {
 
-
                     $this->initSubPage();
 
                     //更改布局
-                    \View::prependNamespace('admin', __DIR__ . '/../resources/views/content');
+                    View::prependNamespace(
+                        'admin',
+                        $this->getViewPath() . '/content'
+                    );
                     $this->contentScript();
-                    Admin::css($assetPath.'/content.css');
+
+                    Admin::css($assetPath . '/content.css');
                 }
             });
         }
@@ -110,7 +98,7 @@ class IframeTabsServiceProvider extends ServiceProvider
     //初始化子页面, 添加回调等信息
     protected function initSubPage()
     {
-        if (!in_array((new IframeTabs())->config('bind_urls', 'none'), ['new_tab', 'popup'])) {
+        if (!in_array(static::config('bind_urls', 'none'), ['new_tab', 'popup'])) {
             return;
         }
 
@@ -415,5 +403,10 @@ EOT;
                 };
             });
         JS);
+    }
+
+    public function settingForm()
+    {
+        return new Setting($this);
     }
 }

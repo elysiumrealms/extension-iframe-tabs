@@ -1,6 +1,6 @@
 {
-    "name": "elysiumrealms/extension-iframe-tabs",
-    "description": "dcat-admin extension iframe-tabs",
+    "name": "dcat-admin/iframe-tabs",
+    "description": "Dcat Admin IFrame 多窗口扩展",
     "type": "library",
     "keywords": ["dcat-admin", "extension"],
     "homepage": "https://github.com/elysiumrealms/extension-iframe-tabs",
@@ -13,15 +13,19 @@
     ],
     "require": {
         "php": ">=7.1.0",
-        "dcat/laravel-admin": "^1.7.0"
+        "dcat/laravel-admin": "~2.0"
     },
     "autoload": {
         "psr-4": {
-            "Dcat\\Admin\\Extension\\IframeTabs\\": "src/"
-        },
-         "files": [
-            "src/bootstrap.php"
-        ]
+            "Dcat\\Admin\\IframeTabs\\": "src/"
+        }
+    },
+    "extra": {
+        "dcat-admin": "Dcat\\Admin\\IframeTabs\\IframeTabsServiceProvider",
+        "laravel": {
+            "providers": [
+                "Dcat\\Admin\\IframeTabs\\IframeTabsServiceProvider"
+            ]
+        }
     }
-
 }
