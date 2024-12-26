@@ -258,6 +258,13 @@ var refreshTab = function () {
     refreshTabById(pageId);
 };
 
+var refreshAllTab = function() {
+    $('.page-tabs-content').children("[" + pageIdField + "]")
+        .find('.page_tab_close').parents('a').each(function() {
+            refreshTabById(getPageId(this));
+        });
+};
+
 function getTabUrlById(pageId) {
     var $iframe = findIframeById(pageId);
     return $iframe[0].contentWindow.location.href;
