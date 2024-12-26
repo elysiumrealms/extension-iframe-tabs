@@ -258,7 +258,7 @@ var refreshTab = function () {
     refreshTabById(pageId);
 };
 
-var refreshAllTab = function() {
+var refreshAllTabs = function() {
     $('.page-tabs-content').children("[" + pageIdField + "]")
         .find('.page_tab_close').parents('a').each(function() {
             refreshTabById(getPageId(this));
