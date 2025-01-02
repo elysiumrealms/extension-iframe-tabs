@@ -8,4 +8,8 @@ return [
     '1.0.1' => [
         'Add RefreshAllTabs',
     ],
+    '1.0.2' => [
+        'Configure dashboard uri',
+        'configure_dashboard_uri.php',
+    ],
 ];
