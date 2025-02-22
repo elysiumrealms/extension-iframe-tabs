@@ -15,17 +15,18 @@ Route::get(
     Controllers\IframeTabsController::class . '@index'
 )->name('iframes.index');
 
-Route::get(
-    '/dashboard',
-    Controllers\IframeTabsController::class . '@dashboard'
-)->name('iframes.dashboard');
-
-if ($dashboard = IframeTabsServiceProvider::setting('dashboard')) {
-    Route::get(
-        '/dashboard',
-        config('admin.route.namespace') . '\\' . $dashboard
-    )->name('iframes.dashboard');
-}
+Route::namespace(
+    config('admin.route.namespace'),
+    function (Router $router) {
+        $router->get(
+            '/dashboard',
+            IframeTabsServiceProvider::setting(
+                'dashboard',
+                'HomeController@index'
+            )
+        )->name('iframes.dashboard');
+    }
+);
 
 if (IframeTabsServiceProvider::setting('force_login_in_top', true)) {
 
